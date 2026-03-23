@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Quản trị Hệ thống{% endblock %}
+
+{% block content %}
+<div style="padding: 20px;">
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
+        <div>
+            <h2 style="color: #003366; margin-bottom: 15px; margin-top: 0; text-transform: uppercase;">
+                {% if parent_name %}
+                    DANH SÁCH TRỰC THUỘC: {{ parent_name }}
+                {% else %}
+                    TRANG QUẢN TRỊ CÁC TRƯỜNG / VIỆN (CẤP 1)
+                {% endif %}
+            </h2>
+
+            <a href="/admin/add" class="btn-add">➕ Thêm Đơn vị mới</a>
+
+            {% if parent_id or keyword %}
+                <a href="/admin" style="display: inline-block; margin-left: 10px; padding: 10px 15px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">
+                    ⬅ Quay lại danh sách gốc
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="search-box">
+            <form action="/admin" method="GET" style="margin: 0;">
+                <input type="text" name="keyword" value="{{ keyword }}" placeholder="Tìm kiếm trong quản trị...">
+                <button type="submit">TÌM KIẾM</button>
+            </form>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên Đơn vị</th>
+                <th>Cấp bậc</th>
+                <th>Website</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in units %}
+            <tr>
+                <td>{{ u.IDDonVi }}</td>
+                <td style="font-size: 16px;"><strong>{{ u.TenDonVi }}</strong></td>
+                <td>
+                    {% if u.IsParent %}
+                        <span style="color: #0056b3; font-weight: bold;">Cấp 1 (Trường/Viện)</span>
+                    {% else %} Cấp 2 (Khoa) {% endif %}
+                </td>
+
+                <td>
+                    {% if u.WebsiteLink %}
+                        <a href="{{ u.WebsiteLink }}" target="_blank" style="color: #28a745;">{{ u.WebsiteLink }}</a>
+                    {% else %}
+                        <a href="/don-vi/{{ u.IDDonVi }}" target="_blank" style="color: #0056b3; font-weight: bold; text-decoration: none;">
+                            📄 [Trang nội bộ]
+                        </a>
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if u.IsParent %}
+                        <a href="/admin?parent_id={{ u.IDDonVi }}" style="background-color: #17a2b8; color: white; font-size: 13px; padding: 6px 12px; margin-right: 5px; text-decoration: none; border-radius: 3px; font-weight: bold;">👀 Xem Khoa</a>
+                    {% endif %}
+
+                    <a href="/admin/edit/{{ u.IDDonVi }}" class="btn-edit">Sửa</a>
+                    <a href="/admin/delete/{{ u.IDDonVi }}" class="btn-delete" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn vị này?');">Xóa</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

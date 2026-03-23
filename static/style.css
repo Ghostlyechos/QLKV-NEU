@@ -1,0 +1,184 @@
+/* static/style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #004080;
+    margin: -20px -20px 20px -20px;
+    padding: 15px 30px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Nhóm chứa nút Quản trị và Ô tìm kiếm */
+.action-group {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Nút đi đến trang Quản trị */
+.btn-admin {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+.btn-admin:hover {
+    background-color: #218838;
+}
+
+.search-box input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+}
+.search-box button {
+    padding: 10px 15px;
+    cursor: pointer;
+    background: #0056b3;
+    color: white;
+    border: none;
+}
+.container {
+    display: flex;
+    border-top: 2px solid #eee;
+    padding-top: 20px;
+    gap: 30px;
+}
+
+/* ===============================
+   CỘT MENU BÊN TRÁI
+   =============================== */
+.menu-left { width: 35%; }
+.menu-left ul { list-style: none; padding: 0; margin: 0; }
+.menu-left li { margin-bottom: 5px; }
+.menu-left a {
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    background: #f8f9fa;
+    color: #003366;
+    font-weight: bold;
+    border-left: 5px solid transparent;
+    transition: all 0.2s ease;
+}
+.menu-left a:hover {
+    background: #e9ecef;
+}
+
+/* Hiệu ứng màu xanh cho menu ĐANG ĐƯỢC CHỌN */
+.menu-left a.active {
+    background: #0056b3;
+    color: white;
+    border-left: 5px solid #003366;
+}
+
+/* ===============================
+   CỘT NỘI DUNG BÊN PHẢI
+   =============================== */
+.content-right { width: 65%; }
+.content-right ul { padding-left: 20px; list-style-type: disc; }
+.content-right li { margin-bottom: 20px; font-size: 18px; color: #666; }
+.content-right .unit-name { color: #333; }
+.link-website {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #0056b3;
+    text-decoration: none;
+}
+.link-website:hover { text-decoration: underline; }
+
+/* ===============================
+   CỤM LOGO VÀ TIÊU ĐỀ
+   =============================== */
+.brand-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 15px;
+}
+
+.brand-link:hover {
+    opacity: 0.85;
+}
+
+.brand-logo {
+    width: 65px;
+    height: auto;
+
+    background-color: white;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.brand-title-vn {
+
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+}
+
+.brand-title-en {
+    color: #333333;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+/* ===============================
+   GIAO DIỆN BẢNG TRANG QUẢN TRỊ (ADMIN)
+   =============================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 12px 10px;
+    text-align: left;
+}
+th {
+    background-color: #0056b3;
+    color: white;
+}
+
+/* Nút bấm trong trang Admin */
+.btn-add {
+    background-color: #28a745; color: white; padding: 10px 15px;
+    text-decoration: none; border-radius: 4px; display: inline-block; font-weight: bold;
+}
+.btn-add:hover { background-color: #218838; }
+
+.btn-edit {
+    background-color: #ffc107; color: black; font-size: 13px;
+    padding: 6px 12px; margin-right: 5px; text-decoration: none;
+    border-radius: 3px; font-weight: bold;
+}
+.btn-edit:hover { background-color: #e0a800; }
+
+.btn-delete {
+    background-color: #dc3545; color: white; font-size: 13px;
+    padding: 6px 12px; text-decoration: none;
+    border-radius: 3px; font-weight: bold;
+}
+.btn-delete:hover { background-color: #c82333; }

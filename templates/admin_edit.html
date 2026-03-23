@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Cập nhật Đơn vị{% endblock %}
+{% block content %}
+<style>
+    .form-group { margin-bottom: 15px; }
+    label { display: block; font-weight: bold; margin-bottom: 5px; }
+    input[type="text"], input[type="email"], select, textarea { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;}
+    .btn-save { padding: 10px 20px; background-color: #ffc107; color: black; border: none; cursor: pointer; font-size: 16px; font-weight: bold; border-radius: 4px;}
+    .btn-save:hover { background-color: #e0a800; }
+    .form-container { max-width: 600px; border: 1px solid #ddd; padding: 20px; background: #f9f9f9; border-radius: 5px; margin-top: 20px; }
+</style>
+
+<div style="padding: 20px;">
+    <h2 style="color: #003366; margin-top: 0;">CẬP NHẬT THÔNG TIN ĐƠN VỊ</h2>
+
+    <div class="form-container">
+        <form action="/admin/edit/{{ unit.IDDonVi }}" method="POST">
+            <div class="form-group">
+                <label>Tên Đơn vị (*):</label>
+                <input type="text" name="TenDonVi" required value="{{ unit.TenDonVi }}">
+            </div>
+
+            <div class="form-group">
+                <label>Đây là đơn vị Cấp mấy?</label>
+                <select name="IsParent" id="isParentSelect" onchange="toggleParentBox()">
+                    <option value="1" {% if unit.IsParent %}selected{% endif %}>Đơn vị Cấp 1 (Trường, Viện lớn)</option>
+                    <option value="0" {% if not unit.IsParent %}selected{% endif %}>Đơn vị Cấp 2 (Khoa, Phòng ban)</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="parentSelectionBox">
+                <label>Trực thuộc Trường/Viện nào? (*):</label>
+                <select name="ParentID">
+                    <option value="">-- Chọn đơn vị quản lý --</option>
+                    {% for p in parents %}
+                        <option value="{{ p.IDDonVi }}" {% if unit.ParentID == p.IDDonVi %}selected{% endif %}>{{ p.TenDonVi }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Link Website riêng (Nếu có, để trống sẽ tạo trang nội bộ):</label>
+                <input type="text" name="WebsiteLink" value="{{ unit.WebsiteLink if unit.WebsiteLink else '' }}">
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+
+            <div class="form-group">
+                <label>Địa điểm / Văn phòng:</label>
+                <input type="text" name="DiaDiem" value="{{ unit.DiaDiem if unit.DiaDiem else '' }}">
+            </div>
+
+            <div class="form-group" style="display: flex; gap: 15px;">
+                <div style="flex: 1;">
+                    <label>Email liên hệ:</label>
+                    <input type="email" name="Email" value="{{ unit.Email if unit.Email else '' }}">
+                </div>
+                <div style="flex: 1;">
+                    <label>Điện thoại:</label>
+                    <input type="text" name="DienThoai" value="{{ unit.DienThoai if unit.DienThoai else '' }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Bài viết Mô tả / Giới thiệu:</label>
+                <textarea name="MoTa" rows="6">{{ unit.MoTa if unit.MoTa else '' }}</textarea>
+            </div>
+
+            <button type="submit" class="btn-save">💾 Cập nhật dữ liệu</button>
+            <a href="/admin" style="margin-left: 15px; text-decoration: none; color: #dc3545; font-weight: bold;">❌ Hủy bỏ</a>
+        </form>
+    </div>
+</div>
+
+<script>
+    function toggleParentBox() {
+        var isParent = document.getElementById("isParentSelect").value;
+        var parentBox = document.getElementById("parentSelectionBox");
+        parentBox.style.display = (isParent === "0") ? "block" : "none";
+    }
+    window.onload = toggleParentBox;
+</script>
+{% endblock %}

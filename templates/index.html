@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Danh sách các Khoa - Viện{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: flex-end; margin-top: 20px; padding-right: 20px;">
+    <div class="search-box">
+        <form action="/" method="GET" style="margin: 0;">
+            <input type="text" name="keyword" value="{{ keyword }}" placeholder="Tìm kiếm đơn vị...">
+            <button type="submit">TÌM KIẾM</button>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="menu-left">
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            {% for item in cap1_list %}
+                <li style="position: relative; margin-bottom: 5px;">
+
+                    <a href="/?parent_id={{ item.IDDonVi }}"
+                       class="{% if item.IDDonVi == current_parent_id %}active{% endif %}"
+                       style="padding-right: 45px; display: block;">
+                        {{ item.TenDonVi }}
+                    </a>
+
+                    {% if item.WebsiteLink %}
+                        <a href="{{ item.WebsiteLink }}" target="_blank" title="Truy cập website ngoài"
+                           style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; padding: 5px; font-size: 18px; text-decoration: none;">
+                            🌐
+                        </a>
+                    {% else %}
+                        <a href="/don-vi/{{ item.IDDonVi }}" title="Xem trang web nội bộ"
+                           style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; padding: 5px; font-size: 18px; text-decoration: none;">
+                            📄
+                        </a>
+                    {% endif %}
+
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="content-right">
+        {% if keyword %}
+            <h3 style="color: #0056b3;">Kết quả tìm kiếm: "{{ keyword }}"</h3>
+        {% endif %}
+
+        <ul>
+            {% for item in cap2_list %}
+                <li>
+                    <span class="unit-name" style="font-size: 18px; color: #333; font-weight: bold;">
+                        {{ item.TenDonVi }}
+                    </span>
+                    <br>
+                    {% if item.WebsiteLink %}
+                        <a href="{{ item.WebsiteLink }}" target="_blank" class="link-website" style="color: #28a745; font-weight: bold;">
+                            🌐 Truy cập website ngoài ➔
+                        </a>
+                    {% else %}
+                        <a href="/don-vi/{{ item.IDDonVi }}" class="link-website" style="color: #0056b3; font-weight: bold;">
+                            📄 Xem trang web nội bộ ➔
+                        </a>
+                    {% endif %}
+                </li>
+            {% else %}
+                <p style="color: red; font-weight: bold;">Không tìm thấy đơn vị nào phù hợp.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Hệ thống Quản lý{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .btn-logout { background-color: #dc3545; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px; font-weight: bold; }
+        .btn-logout:hover { background-color: #c82333; }
+        .btn-login { background-color: #17a2b8; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px; font-weight: bold; }
+        .btn-login:hover { background-color: #138496; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="/" class="brand-link">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="brand-logo">
+            <div class="brand-text">
+                <div class="brand-title-vn">Đại Học Kinh Tế Quốc Dân</div>
+            </div>
+        </a>
+
+        <div class="action-group">
+            {% if session.get('logged_in') %}
+                <a href="/admin" class="btn-admin">⚙️ Quản trị</a>
+                <a href="/logout" class="btn-logout">🚪 Đăng xuất</a>
+            {% else %}
+                <a href="/login" class="btn-login">🔑 Đăng nhập</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
