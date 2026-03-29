@@ -33,7 +33,9 @@
                 <select name="ParentID">
                     <option value="">-- Chọn đơn vị quản lý --</option>
                     {% for p in parents %}
-                        <option value="{{ p.IDDonVi }}" {% if unit.ParentID == p.IDDonVi %}selected{% endif %}>{{ p.TenDonVi }}</option>
+                        {% if p.IDDonVi != unit.IDDonVi %}
+                            <option value="{{ p.IDDonVi }}" {% if unit.ParentID == p.IDDonVi %}selected{% endif %}>{{ p.TenDonVi }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
             </div>
@@ -66,8 +68,8 @@
                 <textarea name="MoTa" rows="6">{{ unit.MoTa if unit.MoTa else '' }}</textarea>
             </div>
 
-            <button type="submit" class="btn-save">💾 Cập nhật dữ liệu</button>
-            <a href="/admin" style="margin-left: 15px; text-decoration: none; color: #dc3545; font-weight: bold;">❌ Hủy bỏ</a>
+            <button type="submit" class="btn-save"> Cập nhật dữ liệu</button>
+            <a href="/admin" style="margin-left: 15px; text-decoration: none; color: #dc3545; font-weight: bold;"> Hủy bỏ</a>
         </form>
     </div>
 </div>
@@ -78,6 +80,7 @@
         var parentBox = document.getElementById("parentSelectionBox");
         parentBox.style.display = (isParent === "0") ? "block" : "none";
     }
+    // Tự động chạy hàm khi vừa load trang để hiển thị đúng trạng thái của ô chọn Đơn vị quản lý
     window.onload = toggleParentBox;
 </script>
 {% endblock %}

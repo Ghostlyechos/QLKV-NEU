@@ -16,25 +16,13 @@
     <div class="menu-left">
         <ul style="list-style: none; padding: 0; margin: 0;">
             {% for item in cap1_list %}
-                <li style="position: relative; margin-bottom: 5px;">
+                <li style="margin-bottom: 5px;">
 
                     <a href="/?parent_id={{ item.IDDonVi }}"
                        class="{% if item.IDDonVi == current_parent_id %}active{% endif %}"
-                       style="padding-right: 45px; display: block;">
+                       style="display: block;">
                         {{ item.TenDonVi }}
                     </a>
-
-                    {% if item.WebsiteLink %}
-                        <a href="{{ item.WebsiteLink }}" target="_blank" title="Truy cập website ngoài"
-                           style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; padding: 5px; font-size: 18px; text-decoration: none;">
-                            🌐
-                        </a>
-                    {% else %}
-                        <a href="/don-vi/{{ item.IDDonVi }}" title="Xem trang web nội bộ"
-                           style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; padding: 5px; font-size: 18px; text-decoration: none;">
-                            📄
-                        </a>
-                    {% endif %}
 
                 </li>
             {% endfor %}
@@ -42,29 +30,49 @@
     </div>
 
     <div class="content-right">
+
         {% if keyword %}
-            <h3 style="color: #0056b3;">Kết quả tìm kiếm: "{{ keyword }}"</h3>
+            <h3 style="color: #0056b3; border-bottom: 2px solid #eee; padding-bottom: 10px;">Kết quả tìm kiếm: "{{ keyword }}"</h3>
+        {% else %}
+            {% for item in cap1_list %}
+                {% if item.IDDonVi == current_parent_id %}
+                    <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+
+                        <h2 style="color: #003366; margin: 0; font-size: 22px; text-transform: uppercase;">{{ item.TenDonVi }}</h2>
+
+                        {% if item.WebsiteLink %}
+                            <a href="{{ item.WebsiteLink }}" target="_blank" style="padding: 8px 15px; background-color: #28a745; color: white; font-weight: bold; text-decoration: none; border-radius: 4px; font-size: 14px; white-space: nowrap;">
+                                Truy cập Website
+                            </a>
+                        {% else %}
+                            <a href="/don-vi/{{ item.IDDonVi }}" style="padding: 8px 15px; background-color: #0056b3; color: white; font-weight: bold; text-decoration: none; border-radius: 4px; font-size: 14px; white-space: nowrap;">
+                                Truy cập Website
+                            </a>
+                        {% endif %}
+
+                    </div>
+                {% endif %}
+            {% endfor %}
         {% endif %}
 
-        <ul>
+        <ul style="list-style-type: none; padding-left: 15px;">
             {% for item in cap2_list %}
-                <li>
-                    <span class="unit-name" style="font-size: 18px; color: #333; font-weight: bold;">
-                        {{ item.TenDonVi }}
-                    </span>
-                    <br>
+                <li style="margin-bottom: 12px; position: relative;">
+                    <span style="position: absolute; left: -15px; color: #0056b3;">▪</span>
+
                     {% if item.WebsiteLink %}
-                        <a href="{{ item.WebsiteLink }}" target="_blank" class="link-website" style="color: #28a745; font-weight: bold;">
-                            🌐 Truy cập website ngoài ➔
+                        <a href="{{ item.WebsiteLink }}" target="_blank" style="font-size: 18px; color: #28a745; font-weight: bold; text-decoration: none;">
+                            {{ item.TenDonVi }}
                         </a>
                     {% else %}
-                        <a href="/don-vi/{{ item.IDDonVi }}" class="link-website" style="color: #0056b3; font-weight: bold;">
-                            📄 Xem trang web nội bộ ➔
+                        <a href="/don-vi/{{ item.IDDonVi }}" style="font-size: 18px; color: #0056b3; font-weight: bold; text-decoration: none;">
+                            {{ item.TenDonVi }}
                         </a>
                     {% endif %}
+
                 </li>
             {% else %}
-                <p style="color: red; font-weight: bold;">Không tìm thấy đơn vị nào phù hợp.</p>
+                <p style="color: red; font-style: italic;">Chưa có đơn vị trực thuộc nào được cập nhật.</p>
             {% endfor %}
         </ul>
     </div>
